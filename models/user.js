@@ -1,5 +1,14 @@
 const mongoose = require("mongoose");
 
+const url = process.env.MONGODB_URI;
+
+console.log("attempting to connect to MongoDB");
+
+mongoose
+  .connect(url)
+  .then(() => console.log("connection established"))
+  .catch((err) => console.log("failed to connect to MongoDB", err.message));
+
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -22,7 +31,6 @@ const userSchema = new mongoose.Schema({
   },
   id: { type: Number, required: true, unique: true },
   date: { type: Date },
-  messages: [{ type: String, date: Date }],
 });
 
 userSchema.set("toJSON", {
